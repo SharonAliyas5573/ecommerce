@@ -12,45 +12,97 @@ This project is a scalable e-commerce backend API built using Django REST Framew
 - **Caching**: Redis caching for faster product retrieval.
 - **Rate Limiting**: Prevent API abuse through rate limiting.
 - **Background Tasks**: Order notifications handled by Celery.
+- **Dockerized Deployment**: Fully containerized setup using Docker and Docker Compose.
 
 ## Technologies Used
 - **Framework**: Django REST Framework
 - **Database**: MongoDB
 - **Caching**: Redis
 - **Task Queue**: Celery
-- **Deployment**: AWS with CI/CD setup
+- **Containerization**: Docker and Docker Compose
+- **Deployment**: AWS with CI/CD setup #TODO
+
+---
 
 ## Installation
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```
-   cd ecommerce-backend
-   ```
-3. Install the required packages:
-   ```
+
+### Prerequisites
+- Docker and Docker Compose installed on your system.
+- Python 3.11+ installed (for local development without Docker).
+
+### Steps to Run the Project
+
+#### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd ecommerce-backend
+```
+
+#### 2. Set Up Environment Variables
+Create a `.env` file in the root directory with the following variables:
+```env
+SECRET_KEY=your-secret-key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+MONGO_URI=mongodb://mongo:27017/ecommerce
+REDIS_URL=redis://redis:6379/0
+```
+
+#### 3. Build and Run the Docker Containers
+Run the following commands to start the application using Docker:
+```bash
+docker-compose build
+docker-compose up
+```
+
+This will start the following services:
+- **web**: The Django application running with Gunicorn.
+- **db**: MongoDB database.
+- **redis**: Redis for caching and Celery message broker.
+- **celery**: Celery worker for background tasks.
+
+#### 4. Access the Application
+- The API will be available at: `http://localhost:8000/`
+- MongoDB will be available at: `localhost:27017`
+- Redis will be available at: `localhost:6379`
+
+---
+
+## Running the Project Locally (Without Docker)
+
+If you prefer to run the project locally without Docker, follow these steps:
+
+1. Install the required Python packages:
+   ```bash
    pip install -r requirements.txt
    ```
 
-## Running the Project
-To run the development server, use:
-```
-python manage.py runserver
-```
+2. Start MongoDB and Redis services on your local machine.
+
+3. Run database migrations:
+   ```bash
+   python manage.py migrate
+   ```
+
+4. Start the development server:
+   ```bash
+   python manage.py runserver
+   ```
+
+---
 
 ## API Documentation
-API endpoints and usage can be found in the [Postman collection](<link-to-postman-collection>)
+API endpoints and usage can be found in the [Postman collection](https://www.postman.com/galactic-zodiac-39647/workspace/personal-workspace/collection/28324271-0d597754-1071-47fb-9e29-e9517b48ec64?action=share&creator=28324271).
+
+---
+
 ## Security
 - Input validation is implemented to prevent injection attacks.
 - Rate limiting is enforced to protect against abuse.
 - Sensitive data is encrypted.
 
-## Bonus Features
-- GraphQL API for flexible data fetching.
-- WebSockets for real-time order tracking.
-- Basic admin panel for managing orders and users.
+
+---
 
 ## License
 This project is licensed under the MIT License.
