@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 import jwt
 from ecommerce.settings import mongo_db
+
 # MongoDB collection for users
 users_collection = mongo_db['users']
 
@@ -24,7 +25,7 @@ def register_user(email, password, role="customer"):
     }
 
     try:
-        settings.mongo_db['users'].insert_one(user_data)
+        mongo_db['users'].insert_one(user_data)
         return {"success": True, "message": "User registered successfully."}
     except DuplicateKeyError:
         return {"success": False, "message": "Email already exists."}
