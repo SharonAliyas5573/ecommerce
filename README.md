@@ -20,7 +20,7 @@ This project is a scalable e-commerce backend API built using Django REST Framew
 - **Caching**: Redis
 - **Task Queue**: Celery
 - **Containerization**: Docker and Docker Compose
-- **Deployment**: AWS with CI/CD setup #TODO
+- **Deployment**: Render with CI/CD setup #TODO
 
 ---
 
