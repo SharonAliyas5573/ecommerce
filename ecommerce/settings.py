@@ -68,14 +68,8 @@ MONGO_USER = os.getenv('MONGO_USER', '')
 MONGO_PASSWORD = os.getenv('MONGO_PASSWORD', '')
 MONGO_AUTH_SOURCE = os.getenv('MONGO_AUTH_SOURCE', 'admin')
 
-
-mongo_client = MongoClient(
-    host=MONGO_HOST,
-    port=MONGO_PORT,
-    username=MONGO_USER if MONGO_USER else None,
-    password=MONGO_PASSWORD if MONGO_PASSWORD else None,
-    authSource=MONGO_AUTH_SOURCE
-)
+MONGO_URI = os.getenv('MONGO_URI','')
+mongo_client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
 
 mongo_db = mongo_client[MONGO_DB_NAME]
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
